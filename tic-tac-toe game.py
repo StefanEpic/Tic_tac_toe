@@ -32,23 +32,23 @@ def input_coordinates():
         cords = input("\t>>>>>>: ").split()
 
         if len(cords) != 2:
-            print(" GLaDOS: Эй! Надо 2 координаты! ")
+            print("\tGLaDOS: Эй! Надо 2 координаты! ")
             continue
 
         x, y = cords
 
         if not (x.isdigit()) or not (y.isdigit()):
-            print(" GLaDOS: Координаты буквами?? Введите числа!! ")
+            print("\tGLaDOS: Координаты буквами?? Введите числа!! ")
             continue
 
         x, y = int(x), int(y)
 
         if 0 > x or x > 2 or 0 > y or y > 2:
-            print(" GLaDOS: От 0 до 2! Координаты вне диапазона! ")
+            print("\tGLaDOS: От 0 до 2! Координаты вне диапазона! ")
             continue
 
         if field[x][y] != " ":
-            print(" GLaDOS: Нет, нет, нет! Клетка занята! ")
+            print("\tGLaDOS: Нет, нет, нет! Клетка занята! ")
             continue
 
         return x, y
