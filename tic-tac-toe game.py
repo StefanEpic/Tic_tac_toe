@@ -76,7 +76,7 @@ def check_win():
             show_battle_place()
             print(f"\tGLaDOS: {glados_win[random.randint(0, 2)]}")
             return True
-        if " " not in field[0] and " " not in field[1] and " " not in field[2]:
+        if " " not in [b for a in field for b in a]:
             show_battle_place()
             print("\tOoops! У кое-кого больше нет ходов... \n\tМожет в следующий раз...")
             return True
@@ -84,12 +84,36 @@ def check_win():
 
 
 def gla_move():
+    win_moves = {
+        (('0 1', '0 2'), ('1 0', '2 0'), ('1 1', '2 2')): '0 0',
+        (('0 0', '0 2'), ('1 1', '2 1')): '0 1',
+        (('0 0', '0 1'), ('1 2', '2 2'), ('1 1', '2 0')): '0 2',
+        (('0 0', '0 2'), ('1 1', '1 2')): '1 0',
+        (('1 0', '1 2'), ('0 1', '2 1'), ('0 0', '2 0'), ('0 2', '2 0')): '1 1',
+        (('1 0', '1 1'), ('0 2', '2 2')): '1 2',
+        (('2 1', '2 2'), ('0 0', '0 1'), ('1 1', '0 2')): '2 0',
+        (('2 0', '2 2'), ('0 1', '1 1')): '2 1',
+        (('2 0', '2 1'), ('0 2', '1 2'), ('0 0', '1 1')): '2 2'
+    }
+
+    for i in win_moves.keys():
+        for j in i:
+            if field[int(j[0][0])][int(j[0][-1])] == '0' and field[int(j[1][0])][int(j[1][-1])] == '0' and field[int(win_moves[i][0])][int(win_moves[i][-1])] == ' ':
+                field[int(win_moves[i][0])][int(win_moves[i][-1])] = '0'
+                print(f'1: {win_moves[i][0]} {win_moves[i][-1]}')
+                return True
+            if field[int(j[0][0])][int(j[0][-1])] == 'X' and field[int(j[1][0])][int(j[1][-1])] == 'X' and field[int(win_moves[i][0])][int(win_moves[i][-1])] == ' ':
+                field[int(win_moves[i][0])][int(win_moves[i][-1])] = '0'
+                print(f'2: {win_moves[i][0]} {win_moves[i][-1]}')
+                return True
+
     while True:
         x = random.randint(0, 2)
         y = random.randint(0, 2)
         if field[x][y] == " ":
             field[x][y] = "0"
-            break
+            print(f'3: {x} {y}')
+            return True
 
 
 greetings()
